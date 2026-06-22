@@ -1,0 +1,28 @@
+{
+  "name": "cafecozy",
+  "version": "1.0.0",
+  "description": "",
+  "homepage": "https://github.com/seetha04x/cafe-cozy#readme",
+  "bugs": {
+    "url": "https://github.com/seetha04x/cafe-cozy/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/seetha04x/cafe-cozy.git"
+  },
+  "license": "ISC",
+  "author": "seetha",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "mongodb": "^7.3.0",
+    "mongoose": "^9.7.1",
+    "passport": "^0.7.0",
+    "passport-local-mongoose": "^9.1.0"
+  }
+}
