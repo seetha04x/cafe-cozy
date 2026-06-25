@@ -1,0 +1,138 @@
+<% layout("./layout/boilerplate") %>
+
+
+  <div class="row justify-content-center">
+    <div class="col-lg-8 col-md-10 col-sm-12">
+      <div class="card shadow-sm border-0 p-4">
+        <h2 class="text-center mb-4">Edit your cafe</h2>
+        <form action="/cafes/<%= cafe._id %>?_method=PUT" method="POST" enctype="multipart/form-data">
+          <div class="mb-3 row">
+            <label for="name" class="col-sm-2 col-form-label">Name</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="name" name="name" value="<%= cafe.name %>" required needs-validation>
+            </div>
+            <div class="valid-feedback">
+              Name looks good!
+            </div>
+          </div>
+
+          <div class="mb-3 row">
+            <label for="description" class="col-sm-2 col-form-label">Short Description</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="description" name="description" value="<%= cafe.description %>" required needs-validation>
+            </div>
+            <div class="valid-feedback">
+              Description looks good!
+            </div>
+            <div class="invalid-feedback">
+              Please provide a valid description.
+            </div>
+          </div>
+
+          <div class="mb-3 row d-flex">
+            <p>Original Images:</p>
+            <% for(let img of originalImg) { %>
+              <div class="col-3 mb-2">
+                <img src="<%= img %>" alt="Original Image" class="img-thumbnail">
+              </div>
+            <% } %>
+            </div>
+            <div class="mb-3 row">
+            <label for="image" class="col-sm-2 col-form-label">Images</label>
+            <div class="col-sm-10">
+              <input type="file" class="form-control" id="image" multiple accept="image/*" name="image" value="<%=cafe.image%>" needs-validation>
+             <div id="preview" class="mt-3 d-flex flex-wrap gap-2"></div>
+             <p class="text-muted mt-0">You can select multiple images.&nbsp; &nbsp;Only JPG, PNG, and GIF files are allowed.</p>
+             <div class="invalid-feedback">
+                Please upload at least one image.
+              </div>
+            </div>
+          </div>
+
+          <div class="mb-3 row">
+            <div class="col-md-6">
+    <label for="location" class="form-label">Location</label>
+    <input type="text" class="form-control" id="location" name="location" value="<%= cafe.location %>" required needs-validation>
+    <div class="invalid-feedback">
+      Please provide a valid location.
+    </div>
+  </div>
+  <div class="col-md-6">
+    <label for="inputState" class="form-label">State</label>
+    <select id="inputState" class="form-select" name="state" value="<%= cafe.state %>" required>
+      <option selected>Choose...</option>
+    <option value="Andhra Pradesh" <%= (cafe.state === 'Andhra Pradesh') ? 'selected' : '' %>>Andhra Pradesh</option>
+    <option value="Arunachal Pradesh" <%= (cafe.state === 'Arunachal Pradesh') ? 'selected' : '' %>>Arunachal Pradesh</option>
+    <option value="Assam" <%= (cafe.state === 'Assam') ? 'selected' : '' %>>Assam</option>
+    <option value="Bihar" <%= (cafe.state === 'Bihar') ? 'selected' : '' %>>Bihar</option>
+    <option value="Chhattisgarh" <%= (cafe.state === 'Chhattisgarh') ? 'selected' : '' %>>Chhattisgarh</option>
+    <option value="Goa" <%= (cafe.state === 'Goa') ? 'selected' : '' %>>Goa</option>
+    <option value="Gujarat" <%= (cafe.state === 'Gujarat') ? 'selected' : '' %>>Gujarat</option>
+    <option value="Haryana" <%= (cafe.state === 'Haryana') ? 'selected' : '' %>>Haryana</option>
+    <option value="Himachal Pradesh" <%= (cafe.state === 'Himachal Pradesh') ? 'selected' : '' %>>Himachal Pradesh</option>
+    <option value="Jharkhand" <%= (cafe.state === 'Jharkhand') ? 'selected' : '' %>>Jharkhand</option>
+    <option value="Karnataka" <%= (cafe.state === 'Karnataka') ? 'selected' : '' %>>Karnataka</option>
+    <option value="Kerala" <%= (cafe.state === 'Kerala') ? 'selected' : '' %>>Kerala</option>
+    <option value="Madhya Pradesh" <%= (cafe.state === 'Madhya Pradesh') ? 'selected' : '' %>>Madhya Pradesh</option>
+    <option value="Maharashtra" <%= (cafe.state === 'Maharashtra') ? 'selected' : '' %>>Maharashtra</option>
+    <option value="Manipur" <%= (cafe.state === 'Manipur') ? 'selected' : '' %>>Manipur</option>
+    <option value="Meghalaya" <%= (cafe.state === 'Meghalaya') ? 'selected' : '' %>>Meghalaya</option>
+    <option value="Mizoram" <%= (cafe.state === 'Mizoram') ? 'selected' : '' %>>Mizoram</option>
+    <option value="Nagaland" <%= (cafe.state === 'Nagaland') ? 'selected' : '' %>>Nagaland</option>
+    <option value="Odisha" <%= (cafe.state === 'Odisha') ? 'selected' : '' %>>Odisha</option>
+    <option value="Punjab" <%= (cafe.state === 'Punjab') ? 'selected' : '' %>>Punjab</option>
+    <option value="Rajasthan" <%= (cafe.state === 'Rajasthan') ? 'selected' : '' %>>Rajasthan</option>
+    <option value="Sikkim" <%= (cafe.state === 'Sikkim') ? 'selected' : '' %>>Sikkim</option>
+    <option value="Tamil Nadu" <%= (cafe.state === 'Tamil Nadu') ? 'selected' : '' %>>Tamil Nadu</option>
+    <option value="Telangana" <%= (cafe.state === 'Telangana') ? 'selected' : '' %>>Telangana</option>
+    <option value="Tripura" <%= (cafe.state === 'Tripura') ? 'selected' : '' %>>Tripura</option>
+    <option value="Uttar Pradesh" <%= (cafe.state === 'Uttar Pradesh') ? 'selected' : '' %>>Uttar Pradesh</option>
+    <option value="Uttarakhand" <%= (cafe.state === 'Uttarakhand') ? 'selected' : '' %>>Uttarakhand</option>
+    <option value="West Bengal" <%= (cafe.state === 'West Bengal') ? 'selected' : '' %>>West Bengal</option>
+    <!-- Union Territories -->
+    <option value="Andaman and Nicobar Islands" <%= (cafe.state === 'Andaman and Nicobar Islands') ? 'selected' : '' %>>Andaman and Nicobar Islands</option>
+    <option value="Chandigarh" <%= (cafe.state === 'Chandigarh') ? 'selected' : '' %>>Chandigarh</option>
+    <option value="Dadra and Nagar Haveli and Daman and Diu" <%= (cafe.state === 'Dadra and Nagar Haveli and Daman and Diu') ? 'selected' : '' %>>Dadra and Nagar Haveli and Daman and Diu</option>
+    <option value="Delhi" <%= (cafe.state === 'Delhi') ? 'selected' : '' %>>Delhi</option>
+    <option value="Ladakh" <%= (cafe.state === 'Ladakh') ? 'selected' : '' %>>Ladakh</option>
+    <option value="Lakshadweep" <%= (cafe.state === 'Lakshadweep') ? 'selected' : '' %>>Lakshadweep</option>
+    <option value="Puducherry" <%= (cafe.state === 'Puducherry') ? 'selected' : '' %>>Puducherry</option>
+    </select>
+  </div>
+        </div>
+
+
+          <!-- <fieldset class="mb-3 row">
+            <legend class="col-form-label col-sm-2 pt-0">Radios</legend>
+            <div class="col-sm-10">
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="option1" checked>
+                <label class="form-check-label" for="gridRadios1">First radio</label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="option2">
+                <label class="form-check-label" for="gridRadios2">Second radio</label>
+              </div>
+              <div class="form-check disabled">
+                <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios3" value="option3" disabled>
+                <label class="form-check-label" for="gridRadios3">Third disabled radio</label>
+              </div>
+            </div>
+          </fieldset> -->
+          <!-- <div class="mb-3 row">
+            <div class="col-sm-10 offset-sm-2">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="gridCheck1">
+                <label class="form-check-label" for="gridCheck1">Example checkbox</label>
+              </div>
+            </div>
+          </div> -->
+          <div class="text-center">
+            <button type="submit" class="btn bg-cl px-4">Update Cafe</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+<script src="/css/js/preview.js"></script>

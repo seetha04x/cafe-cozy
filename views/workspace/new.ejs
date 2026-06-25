@@ -1,0 +1,54 @@
+<% layout("./layout/boilerplate") %>
+
+<div class="row justify-content-center">
+  <div class="col-lg-8 col-md-10 col-sm-12">
+    <div class="card shadow-sm border-0 p-4">
+      <h2 class="text-center mb-4">Add a Workspace</h2>
+      <form action="/workspaces" method="post">
+        
+        <!-- Description -->
+        <div class="mb-3 row">
+          <label for="description" class="col-sm-2 col-form-label">Description</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" id="description" name="description" required>
+            <div class="invalid-feedback">Please provide a valid description.</div>
+          </div>
+        </div>
+
+        <!-- Price -->
+        <div class="mb-3 row">
+          <label for="price" class="col-sm-2 col-form-label">Price (₹/hour)</label>
+          <div class="col-sm-10">
+            <input type="number" class="form-control" id="price" name="price" required min="0">
+            <div class="invalid-feedback">Please provide a valid price.</div>
+          </div>
+        </div>
+
+        <!-- Category -->
+        <div class="mb-3 row">
+          <label for="category" class="col-sm-2 col-form-label">Category</label>
+          <div class="col-sm-10">
+            <select id="category" class="form-select" name="category" required>
+              <option selected disabled>Choose...</option>
+              <option value="desk">Desk</option>
+              <option value="lounge">Lounge</option>
+              <option value="table">Table</option>
+              <option value="sofa">Sofa</option>
+              <option value="conference room">Conference Room</option>
+              <option value="book space">Book Space</option>
+              <option value="cabin">Cabin</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Hidden cafe reference -->
+        <input type="hidden" name="cafe" value="<%= cafe %>">
+
+        <!-- Submit -->
+        <div class="text-center">
+          <button type="submit" class="btn bg-cl px-4">Add Workspace</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
