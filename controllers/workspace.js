@@ -13,7 +13,7 @@ module.exports.delete=async(req,res)=>{
     const workspace=await Workspace.findByIdAndDelete(id);
     res.redirect(`/cafes/${workspace.cafe}`);
 }   
-module.exports.newForm=async (req,res)=>{
+module.exports.newForm=(req,res)=>{
     const {id}=req.params;
     res.render("./workspace/new.ejs",{cafe: id});
 } 
