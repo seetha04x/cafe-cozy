@@ -1,0 +1,19 @@
+const Cafe=require("./models/cafe.js");
+const workspace=require("./models/workspace.js");
+const ExpressError=require("./utils/ExpressError.js");
+
+function isLoggedIn(req,res,next){
+    if(!req.isAuthenticated()){
+        req.session.redirectUrl=req.originalUrl;
+        req.flash("error", "You must be signed in first!");
+        return res.redirect("/login");
+    } 
+    next();
+}   
+function saveRedirectUrl(req,res,next){
+    if(req.session.redirectUrl){
+        res.locals.redirectUrl=req.session.redirectUrl;
+        delete req.session.redirectUrl;
+    }
+    next(); 
+}
