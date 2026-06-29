@@ -2,7 +2,7 @@ const Cafe=require("./models/cafe.js");
 const workspace=require("./models/workspace.js");
 const ExpressError=require("./utils/ExpressError.js");
 
-function isLoggedIn(req,res,next){
+function isLoggedin(req,res,next){
     if(!req.isAuthenticated()){
         req.session.redirectUrl=req.originalUrl;
         req.flash("error", "You must be signed in first!");
@@ -17,3 +17,15 @@ function saveRedirectUrl(req,res,next){
     }
     next(); 
 }
+
+async function isOwner(req,res,next){
+    const {id}= req.params;
+    const cafe= await Cafe.findById(id);
+     if(!(res.locals.currUser._id.equals(cafe.owner._id))){
+            req.flash("error", "You dont have the access!");
+            return res.redirect(`/cafes/${id}`);
+        }
+      next();  
+}
+
+module.exports={ isLoggedin,saveRedirectUrl, isOwner};
