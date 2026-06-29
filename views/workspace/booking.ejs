@@ -1,0 +1,99 @@
+<% layout("/layout/boilerplate") %>
+<div class="row justify-content-center">
+<div class="col-lg-8 col-md-10 col-sm-12">
+
+<div class="card border-0 shadow-sm p-4 rounded-3">
+  <h4 class="card-title mb-4 text-dark fw-bold">Reserve Your Slot</h4>
+  
+  <form action="/workspaces/<%= workspace._id %>/booking" method="POST" class="needs-validation" novalidate>
+    
+    <!-- Date -->
+    <div class="mb-3">
+      <label for="date" class="form-label text-muted fw-semibold small">Choose Date</label>
+      <input type="date" class="form-control" id="date" name="date" value="<%= new Date().toISOString().split('T')[0] %>" 
+      min="<%= new Date().toISOString().split('T')[0] %>" required>
+      <div class="invalid-feedback">Please select a valid date.</div>
+    </div>
+    
+
+    <div class="mb-3">
+  <label class="form-label fw-semibold small text-muted">Time Slot</label>
+  <div class="btn-group flex-wrap" role="group" aria-label="Time slots">
+    <% 
+      for (let h = 8; h <= 20; h++) {
+          const m=0; // Only generate slots at the start of each hour
+          const hour = h.toString().padStart(2, "0");
+          const minute = m.toString().padStart(2, "0");
+          const time = `${hour}:${minute}- ${(h + 1).toString().padStart(2, "0")}:${minute}`;
+    %>
+      <input type="radio" class="btn-check" name="time" id="<%= time.replace(':','') %>" value="<%= time %>" required>
+      <label class="btn btn-outline-primary m-1" for="<%= time.replace(':','') %>"><%= time %></label>
+    <%  } %>
+  </div>
+</div>
+    <!-- Start Time -->
+<!-- <div class="mb-3">
+  <label class="form-label fw-semibold small text-muted">From</label>
+  <div class="btn-group flex-wrap" role="group" aria-label="Start time slots">
+    <% 
+      for (let h = 8; h <= 20; h++) {
+        for (let m of [0, 30]) {
+          const hour = h.toString().padStart(2, "0");
+          const minute = m.toString().padStart(2, "0");
+          const time = `${hour}:${minute}`;
+    %>
+      <input type="radio" class="btn-check" name="startTime" id="start<%= time.replace(':','') %>" value="<%= time %>" required>
+      <label class="btn btn-outline-primary m-1" for="start<%= time.replace(':','') %>"><%= time %></label>
+    <% } } %>
+  </div>
+</div>
+
+<-- End Time 
+<div class="mb-3">
+  <label class="form-label fw-semibold small text-muted">To</label>
+  <div class="btn-group flex-wrap" role="group" aria-label="End time slots" id="endTimeGroup">
+    <% 
+      for (let h = 8; h <= 20; h++) {
+        for (let m of [0, 30]) {
+          const hour = h.toString().padStart(2, "0");
+          const minute = m.toString().padStart(2, "0");
+          const time = `${hour}:${minute}`;
+    %>
+      <input type="radio" class="btn-check" name="endTime" id="end<%= time.replace(':','') %>" value="<%= time %>" required>
+      <label class="btn btn-outline-success m-1" for="end<%= time.replace(':','') %>"><%= time %></label>
+    <% } } %>
+  </div>
+</div> -->
+
+
+
+    
+    <!-- Submit -->
+    <button type="submit" class="btn bg-cl w-100 fw-bold py-2 rounded-2">
+      <i class="fa-solid fa-calendar-check me-2"></i> Book Workspace
+    </button>
+  </form>
+</div>
+</div>
+</div>
+<script src="/css/js/validation.js"></script>
+<script>
+  // Filter end times based on selected start time
+  const startRadios = document.querySelectorAll('input[name="startTime"]');
+  const endRadios = document.querySelectorAll('input[name="endTime"]');
+
+  startRadios.forEach(radio => {
+    radio.addEventListener('change', () => {
+      const startValue = radio.value;
+      endRadios.forEach(endRadio => {
+        if (endRadio.value <= startValue) {
+          endRadio.disabled = true;
+          endRadio.nextElementSibling.classList.add('disabled');
+        } else {
+          endRadio.disabled = false;
+          endRadio.nextElementSibling.classList.remove('disabled');
+        }
+      });
+    });
+  });
+</script>
