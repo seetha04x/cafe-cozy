@@ -1,0 +1,104 @@
+body{
+font-family: "Plus Jakarta Sans", sans-serif !important;
+display: flex;
+flex-direction: column;
+min-height: 100vh;
+background-color: #fafbf2 !important;
+}
+.navbar{
+    background-color: #fdfbfb;
+    position: sticky;
+    height: 7rem !important;
+}
+.navbar-nav{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.container-fluid{
+    flex:1;
+}
+.cd{
+    height: auto !important;
+    border-radius: 1rem;
+}
+.card img{
+    height:15rem !important;
+    width: 100% !important;
+    object-fit: cover !important;
+    border-top-left-radius: 0.8rem !important;
+    border-top-right-radius: 0.8rem !important;
+}
+.card-bottom{
+    display: flex;
+    justify-content: space-around;
+    align-content: center;
+}
+.card-bottom i{
+    font-size: 1.5rem;
+    color: rgb(187, 100, 115);
+}
+.cafe-link{
+    text-decoration: none;
+}
+.cd:hover{
+    transform: translateY(-7px);
+    transition: transform 0.2s ease-in-out;
+}
+.f-info-links a{
+    margin: 0.5rem;
+    text-decoration: none;
+    color: black;
+
+}
+.f-info-socials i{
+    text-decoration: none;
+    color: black;
+}
+.f-info{
+    height: 8rem;
+    background-color: #ebebeb;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: sticky;
+}
+.f-info-links a:hover{
+    color: #fe424d;
+    transition: 0.31s; 
+}
+/* show.ejs*/
+.show-image{
+    object-fit: fill;
+    height: 40vh;
+    width:100%;
+    border-radius: 5px;
+}
+.show-text{
+    font-size: 1.8rem;
+    font-weight: 500;
+}
+.cl{
+    color: rgb(101, 146, 135)!important;
+}
+ .bg-cl{
+    background-color: rgb(101, 146, 135) !important;
+    color:white !important;
+ }
+ .bg-cl-red{
+    background-color: rgb(222, 75, 85) !important;
+    color:white !important;
+ }
+ .search{
+    border-radius: 20px !important;
+    width:25rem !important;
+    height: 3rem !important;
+    
+ }
+
+@media(max-width:1000px){
+    .hide{
+display:none !important;
+    }
+}
