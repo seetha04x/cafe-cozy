@@ -28,8 +28,10 @@ async function geocodeLocation(location){
 
 module.exports.index= async(req,res)=>{
     const all=await Cafe.find({});
-    if(all.length==0) return res.render("./cafe/index.ejs",{});
-    res.render("./cafe/index.ejs",{all});
+    if(all.length==0) {
+        return res.render("./cafe/index.ejs",{all,message:"No Cafes Found"});
+    }
+    res.render("./cafe/index.ejs",{all,message:""});
 }
 
 module.exports.new= (req,res)=>{
@@ -46,19 +48,25 @@ module.exports.postNew=async (req,res)=>{
             filename:file.filename
         }));
     }
-    const newCafe=new Cafe({name,description,location,state,image});
+    const owner=req.user._id;
+    const newCafe=new Cafe({name,description,location,owner,state,image});
     newCafe.geometry={
         type:"Point",
         coordinates,
     }
     console.log(newCafe);
     await newCafe.save();
+    req.flash("success","Successfully added a new Cafe");
     res.redirect("/cafes");
 };
 
 module.exports.show=async (req,res)=>{
     const {id}=req.params;
-    const cafe=await Cafe.findById(id);
+    const cafe=await Cafe.findById(id).populate("owner");
+    if(!cafe){
+        req.flash("error","Cafe not found");
+        return res.redirect("/cafes");
+    }
     const workspace=await Workspace.find({cafe:id})
     res.render("./cafe/show.ejs",{cafe,workspace});
 };
@@ -66,7 +74,12 @@ module.exports.show=async (req,res)=>{
 module.exports.delete=async(req,res)=>{
     const {id}=req.params;
     const cafe=await Cafe.findByIdAndDelete(id);
+    if(!cafe){
+        req.flash("error","Cafe not found");
+        return res.redirect("/cafes");
+    }
     const workspace=await Workspace.deleteMany({cafe:id});
+    req.flash("success","Successfully deleted the Cafe");
     res.redirect("/cafes");
 }
 module.exports.editForm=async(req,res)=>{
@@ -85,6 +98,10 @@ module.exports.postEdit=async(req,res)=>{
     const {id}=req.params;
     const {name,description,location,state}=req.body;
     const cafeToUpdate=await Cafe.findById(id);
+    if(!cafeToUpdate){
+        req.flash("error","Cafe not found");
+        return res.redirect("/cafes");
+    }
     const coordinates= await geocodeLocation(location);
     let image = cafeToUpdate.image || [];
     if(req.files && req.files.length>0){
@@ -94,5 +111,18 @@ module.exports.postEdit=async(req,res)=>{
         }));
     }
     await Cafe.findByIdAndUpdate(id,{name,description,location,state,image,geometry:{type:"Point",coordinates}});
+    req.flash("success","Successfully updated the Cafe");
     res.redirect(`/cafes/${id}`);
 }      
+module.exports.search=async(req,res)=>{
+    let place=req.query.place;
+    let all;
+    if(!place || place.trim()===""){
+        all=await Cafe.find({});
+    }else{
+         all=await Cafe.find({$or:[{location:{$regex:place,$options:"i"}},{state:{$regex:place,$options:"i"}}]});
+    }
+    if(all.length===0) return res.render("./cafe/index.ejs",{all,message:"No cafes available in this category yet."});
+
+    res.render("./cafe/index.ejs",{all,message:""});
+}
