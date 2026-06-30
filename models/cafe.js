@@ -1,14 +1,24 @@
+const { required } = require("joi");
 const mongoose=require("mongoose");
 const Schema=mongoose.Schema;
 
 const cafeSchema=new Schema({
     name:String,
     description:String,
-    image:{
+    image:[{
         url:String,
         filename:String,
+    }],
+    owner:{
+        type:Schema.Types.ObjectId,
+        ref:"User",
     },
-    location:String,
+    location:{
+        type:String,
+    required:true} ,
+    state:{
+        type:String,
+    required:true},
     geometry:{
         type:{
             type:String,
