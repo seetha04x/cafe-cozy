@@ -37,8 +37,8 @@ async function main(){
 main()
 .then(()=>{
     console.log("Connected to database CafeCozy.");
-    app.listen(2310,()=>{
-    console.log("Listening to port 2310...");
+    app.listen(3000,()=>{
+    console.log("Listening to port 3000...");
 })
 })
 .catch((err)=>{
@@ -95,8 +95,11 @@ app.use((err,req,res,next)=>{
     if(res.headersSent){
         return next(err);
     }
-    const {statusCode=500,message="Something went wrong"}=err;
-    res.status(statusCode).render("error.ejs",{err, statusCode, message});
+
+    const statusCode = Number.isInteger(err?.statusCode) ? err.statusCode : 500;
+    const message = err?.message || "Something went wrong";
+
+    res.status(statusCode).render("error.ejs", { err, statusCode, message });
 })
 
 
