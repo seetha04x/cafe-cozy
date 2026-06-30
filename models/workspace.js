@@ -7,15 +7,10 @@ const workspaceSchema=new Schema({
         ref:"cafe",
     },
     description:String,
-    price:Number,
-    reviews:[
-        {type:Schema.Types.ObjectId,
-         ref:"review",
-        }
-    ],
+    price:{type:Number, default:0},
     category:{
         type:String,
-        enum:["desk","conference room","book space","cabin"],
+        enum:["desk","lounge","table","sofa" ,"conference room","book space","cabin"],
         default:"desk",
         required:true,
     }
