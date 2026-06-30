@@ -1,7 +1,7 @@
 const Cafe=require("./models/cafe.js");
 const workspace=require("./models/workspace.js");
 const ExpressError=require("./utils/ExpressError.js");
-
+const {cafeSchema, workSchema}=require("./schema.js");
 function isLoggedin(req,res,next){
     if(!req.isAuthenticated()){
         req.session.redirectUrl=req.originalUrl;
@@ -28,4 +28,21 @@ async function isOwner(req,res,next){
       next();  
 }
 
-module.exports={ isLoggedin,saveRedirectUrl, isOwner};
+const validateCafe=(req,res,next)=>{
+    const result = cafeSchema.validate(req.body, { abortEarly: false });
+    if(result.error){
+        const msg = result.error.details.map((el) => el.message).join(", ");
+        return next(new ExpressError(msg, 400));
+    }
+    next();
+}
+const validateWork=(req,res,next)=>{
+    let result=workSchema.validate(req.body);
+    if(result.error){
+        let msg=result.error.details.map((el)=>el.message).join(",");
+        throw next(new ExpressError(msg, 400));
+    }else{
+        next();
+    }
+}
+module.exports={ isLoggedin,saveRedirectUrl, isOwner,validateCafe,validateWork};
