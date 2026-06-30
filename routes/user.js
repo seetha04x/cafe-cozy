@@ -1,8 +1,8 @@
 const express=require("express");
 const router=express.Router();
 const passport=require("passport");
-// const wrapAsync = require("../utils/wrapAsync.js");
-// const {saveRedirectUrl}=require("../middleware.js");
+const wrapAsync = require("../utils/wrapAsync.js");
+const {saveRedirectUrl}=require("../middlewares.js");
 const userController=require("../controllers/user.js");
 
 router.route("/login")
