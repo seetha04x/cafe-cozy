@@ -1,10 +1,10 @@
 const User=require("../models/user");
 const passport=require("passport");
-const {saveRedirectUrl}=require("../middleware.js");
+const {saveRedirectUrl}=require("../middlewares.js");
 
 
 module.exports.signupForm=(req,res)=>{
-    res.render("./user/signup.ejs");
+    res.render("./users/signup.ejs");
 }
 module.exports.signup=async(req,res)=>{
     try{
@@ -12,7 +12,7 @@ module.exports.signup=async(req,res)=>{
         const user=new User({username,email});
         const registeredUser=await User.register(user,password);
         passport.authenticate("local")(req,res,()=>{
-            req.flash("success","Welcome to CafeCozy!");
+            req.flash("success",`Welcome ${req.user.username} to CafeCozy!`);
             res.redirect("/cafes");
         });
     }catch(e){
@@ -22,11 +22,11 @@ module.exports.signup=async(req,res)=>{
 };
 
 module.exports.loginForm=(req,res)=>{
-    res.render("./user/login.ejs");
+    res.render("./users/login.ejs");
 }
 
 module.exports.login=(req,res)=>{
-    req.flash("success","Welcome back!");
+    req.flash("success",`Welcome ${req.user.username} to CafeCozy!`);
     const redirectUrl=req.session.redirectUrl || "/cafes";
     res.redirect(redirectUrl);
 }               
