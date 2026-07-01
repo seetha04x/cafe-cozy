@@ -1,5 +1,11 @@
 <% layout("/layout/boilerplate") %>
+<% const msg = typeof message !== 'undefined' ? message : ""; %>
         <div class="row g-3">
+            <% if(msg && msg.length>0) { %>
+                <div class="text-center italic text-muted fs-5 mt-5">
+                    <%=msg%>
+                </div>
+            <% } %>
             <% for(let data of all) { %>     
             <div class="col-lg-2 col-md-4 col-sm-6 g-3 ">
                 <a href="/cafes/<%=data.id%>" class="cafe-link w-100">

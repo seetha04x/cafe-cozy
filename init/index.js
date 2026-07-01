@@ -6,6 +6,7 @@ const dbUrl = process.env.ATLASDB_URL;
 const mongoose=require("mongoose");
 const indata=require("./data.js");
 const cafe=require("../models/cafe.js");
+const workspace=require("../models/workspace.js")
 
 async function main(){
     await mongoose.connect(dbUrl);
@@ -21,8 +22,9 @@ main()
 
 async function initDB(){
     await cafe.deleteMany({});
-    console.log("Old cafe data cleared.");
-
+  
     await cafe.insertMany(indata.cafe);
+
+    // await workspace.insertMany(indata.workspaces);
     console.log("data initialised.")
 }

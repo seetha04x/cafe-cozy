@@ -15,11 +15,11 @@ const reviewSchema=new Schema({
     },
     workspace:{
         type:Schema.Types.ObjectId,
-        ref:"workspace",
+        ref:"Workspace",
     },
     owner:{
         type:Schema.Types.ObjectId,
-        ref:"user",
+        ref:"User",
     },
     createdAt:{
         type:Date,

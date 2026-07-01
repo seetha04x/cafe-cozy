@@ -1,13 +1,12 @@
 <% layout('/layout/boilerplate.ejs') %>
 
-<% layout('/layout/boilerplate.ejs') %>
-
 <div class="row m-2">
   <!-- Left column: Cafe info -->
-  <div class="col-md-6">
+  <div class="col-lg-6">
     <div class="d-flex justify-content-between align-items-center mb-3">
-      <h1><%= cafe.name %></h1>
       
+      <h1><%= cafe.name %></h1>
+      <% if(currUser && cafe.owner && (currUser.username === cafe.owner.username)) { %>
       <div class="d-flex justify-content-end align-items-center gap-2">
                     <button class="btn bg-cl my-3 me-2" onclick="window.location.href='/cafes/<%= cafe._id %>/edit' ">
       Edit Cafe
@@ -18,6 +17,7 @@
                     </button>
                   </form>
                   </div>
+ <% }%>
     </div>
 
     <div class="card border-0 my-3">
@@ -25,6 +25,7 @@
       <div class="card-body">
         <p class="show-text">In <%= cafe.location %></p>
         <p><%= cafe.description %></p>
+        <p>Owned by: <%= cafe.owner.username %></p>
       </div>
     </div>
 
@@ -39,14 +40,16 @@
   </div>
 
   <!-- Right column: Workspaces -->
-  <div class="col-md-6">
+  <div class="col-lg-6">
     <div class="work-info text-muted">
       <% if (workspace.length > 0) { %>
         <div class="d-flex justify-content-between align-items-center">
           <h4>Workspaces available</h4>
-          <button class="btn bg-cl ms-auto mb-2" onclick="window.location.href='/workspaces/new/<%= cafe._id %>' ">
+          <% if(currUser && cafe.owner && (currUser.username === cafe.owner.username)) { %>
+            <button class="btn bg-cl ms-auto mb-2" onclick="window.location.href='/workspaces/new/<%= cafe._id %>' ">
             <i class="fa-solid fa-plus"></i>
           </button>
+           <% }%>
         </div>
       <div class="spaces row g-3">
         <% for(let space of workspace) { %>
@@ -55,6 +58,7 @@
               <div class="card-body d-flex flex-column justify-content-between">
                 <div class="d-flex justify-content-between align-items-center">
                   <h5 class="card-title cl"><%= space.category %></h5>
+                  <% if(currUser && cafe.owner && (currUser.username === cafe.owner.username)) { %>
                   <div class="d-flex justify-content-end align-items-center gap-2">
                     <a href="/workspaces/<%=space.id%>/edit" class="btn btn-sm">
                     <i class="fa-solid fa-pen"></i>
@@ -65,13 +69,14 @@
                     </button>
                   </form>
                   </div>
+                  <% }%>
                 </div>
                 <p class="card-text"><%= space.description %></p>
                 <div class="d-flex justify-content-between align-items-center mt-3">
                   <span class="text-muted fw-bold">
                     ₹<%= space.price.toLocaleString('en-IN') %> / hour
                   </span>
-                  <a href="/workspaces/book/<%= space._id %>" class="btn ms-2 bg-cl">
+                  <a href="/workspaces/<%= space._id%>/booking" class="btn ms-2 bg-cl">
                     Book Now
                   </a>
                 </div>
@@ -82,11 +87,13 @@
       </div>
         <%}else {%>
           <p class="text-center">No workspaces available.</p>
+          <% if(currUser && cafe.owner && (currUser.username === cafe.owner.username)) { %>
           <div class="d-flex justify-content-center">
             <button class="btn bg-cl" onclick="window.location.href='/workspaces/new/<%= cafe._id %>' ">
               Add Workspace
             </button>
           </div>
+           <% }%>
         <% } %>
     </div>
   </div>

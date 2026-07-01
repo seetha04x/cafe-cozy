@@ -30,13 +30,13 @@
           <div class="col-sm-10">
             <select id="category" class="form-select" name="category" value="<%= workspace.category %>" required>
               <option selected disabled>Choose...</option>
-              <option value="desk">Desk</option>
-              <option value="lounge">Lounge</option>
-              <option value="table">Table</option>
-              <option value="sofa">Sofa</option>
-              <option value="conference room">Conference Room</option>
-              <option value="book space">Book Space</option>
-              <option value="cabin">Cabin</option>
+              <option value="desk" <%= (workspace.category === 'desk') ? 'selected' : '' %>>Desk</option>
+              <option value="lounge" <%= (workspace.category === 'lounge') ? 'selected' : '' %>>Lounge</option>
+              <option value="table" <%= (workspace.category === 'table') ? 'selected' : '' %>>Table</option>
+              <option value="sofa" <%= (workspace.category === 'sofa') ? 'selected' : '' %>>Sofa</option>
+              <option value="conference room" <%= (workspace.category === 'conference room') ? 'selected' : '' %>>Conference Room</option>
+              <option value="book space" <%= (workspace.category === 'book space') ? 'selected' : '' %>>Book Space</option>
+              <option value="cabin" <%= (workspace.category === 'cabin') ? 'selected' : '' %>>Cabin</option>
             </select>
           </div>
         </div>
@@ -50,5 +50,9 @@
         </div>
       </form>
     </div>
+    <button class="btn bg-cl my-3" onclick="window.location.href='/cafes' ">
+      Back to Home
+    </button>
   </div>
 </div>
+<script src="/css/js/validation.js"></script>

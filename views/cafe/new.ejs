@@ -1,25 +1,28 @@
-<% layout("./layout/boilerplate") %>
+<% layout("/layout/boilerplate") %>
 
 
   <div class="row justify-content-center">
     <div class="col-lg-8 col-md-10 col-sm-12">
       <div class="card shadow-sm border-0 p-4">
         <h2 class="text-center mb-4">Add your cafe</h2>
-        <form action="/cafes" method="post" enctype="multipart/form-data">
+        <form action="/cafes/" method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
           <div class="mb-3 row">
             <label for="name" class="col-sm-2 col-form-label">Name</label>
             <div class="col-sm-10">
-              <input type="text" class="form-control" id="name" name="name" required needs-validation>
-            </div>
-            <div class="valid-feedback">
-              Name looks good!
+              <input type="text" class="form-control" id="name" name="name" required aria-describedby="nameFeedback" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Please enter the cafe name">
+              <div class="invalid-feedback" id="nameFeedback">
+                Please provide a valid name.
+              </div>
             </div>
           </div>
 
           <div class="mb-3 row">
             <label for="description" class="col-sm-2 col-form-label">Short Description</label>
             <div class="col-sm-10">
-              <input type="text" class="form-control" id="description" name="description" required needs-validation>
+              <input type="text" class="form-control" id="description" name="description" required aria-describedby="descriptionFeedback" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Please enter a short description">
+              <div class="invalid-feedback" id="descriptionFeedback">
+                Please provide a valid description.
+              </div>
             </div>
             <div class="valid-feedback">
               Description looks good!
@@ -32,10 +35,10 @@
           <div class="mb-3 row">
             <label for="image" class="col-sm-2 col-form-label">Images</label>
             <div class="col-sm-10">
-              <input type="file" class="form-control" id="image" multiple accept="image/*" name="image" required needs-validation>
+              <input type="file" class="form-control" id="image" multiple accept="image/*" name="image" required aria-describedby="imageFeedback" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Please upload images">
              <div id="preview" class="mt-3 d-flex flex-wrap gap-2"></div>
              <p class="text-muted mt-0">You can select multiple images.&nbsp; &nbsp;Only JPG, PNG, and GIF files are allowed.</p>
-             <div class="invalid-feedback">
+             <div class="invalid-feedback" id="imageFeedback">
                 Please upload at least one image.
               </div>
             </div>
@@ -44,8 +47,9 @@
           <div class="mb-3 row">
             <div class="col-md-6">
     <label for="location" class="form-label">Location</label>
-    <input type="text" class="form-control" id="location" name="location" required needs-validation>
-    <div class="invalid-feedback">
+    <input type="text" class="form-control" id="location" name="location" required
+    aria-describedby="locationFeedback" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Please enter the cafe location">
+    <div class="invalid-feedback" id="locationFeedback">
       Please provide a valid location.
     </div>
   </div>
@@ -92,39 +96,17 @@
     </select>
   </div>
         </div>
-
-
-          <!-- <fieldset class="mb-3 row">
-            <legend class="col-form-label col-sm-2 pt-0">Radios</legend>
-            <div class="col-sm-10">
-              <div class="form-check">
-                <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="option1" checked>
-                <label class="form-check-label" for="gridRadios1">First radio</label>
-              </div>
-              <div class="form-check">
-                <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="option2">
-                <label class="form-check-label" for="gridRadios2">Second radio</label>
-              </div>
-              <div class="form-check disabled">
-                <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios3" value="option3" disabled>
-                <label class="form-check-label" for="gridRadios3">Third disabled radio</label>
-              </div>
-            </div>
-          </fieldset> -->
-          <!-- <div class="mb-3 row">
-            <div class="col-sm-10 offset-sm-2">
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" id="gridCheck1">
-                <label class="form-check-label" for="gridCheck1">Example checkbox</label>
-              </div>
-            </div>
-          </div> -->
+ 
           <div class="text-center">
             <button type="submit" class="btn bg-cl px-4">Add</button>
           </div>
         </form>
       </div>
+      <button class="btn bg-cl my-3" onclick="window.location.href='/cafes' ">
+      Back to Home
+    </button>
     </div>
   </div>
 
 <script src="/css/js/preview.js"></script>
+<script src="/css/js/validation.js"></script>
